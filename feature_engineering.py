@@ -5,9 +5,11 @@ from sklearn.ensemble import RandomForestClassifier
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+
 class FeatureEngineer:
     def __init__(self):
         self.selected_features = None
+        
         
     def calculate_feature_importance(self, X, y):
         """Calculate feature importance using multiple methods"""
@@ -19,6 +21,7 @@ class FeatureEngineer:
             'importance_rf': rf.feature_importances_
         })
         
+        
         # ANOVA F-value
         selector = SelectKBest(score_func=f_classif, k='all')
         selector.fit(X, y)
@@ -26,6 +29,7 @@ class FeatureEngineer:
             'feature': X.columns,
             'importance_anova': selector.scores_
         })
+        
         
         # Combine importance scores
         importance_df = pd.merge(rf_importance, anova_scores, on='feature')
@@ -35,6 +39,7 @@ class FeatureEngineer:
         )
         
         return importance_df.sort_values('combined_importance', ascending=False)
+    
     
     def select_features(self, X, y, n_features=20):
         """Select top features based on importance"""
@@ -46,6 +51,7 @@ class FeatureEngineer:
         """Plot feature importance"""
         plt.figure(figsize=(12, 8))
         top_features = importance_df.head(top_n)
+        
         
         plt.subplot(1, 2, 1)
         sns.barplot(data=top_features, y='feature', x='importance_rf')
