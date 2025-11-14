@@ -6,6 +6,7 @@ from sklearn.metrics import (
     classification_report, confusion_matrix, 
     roc_curve, auc, precision_recall_curve,
     average_precision_score
+    
 )
 from sklearn.model_selection import learning_curve
 
@@ -13,12 +14,14 @@ class ModelEvaluator:
     def __init__(self, model, model_name):
         self.model = model
         self.model_name = model_name
+        
     
     def comprehensive_evaluation(self, X_test, y_test):
         """Perform comprehensive model evaluation"""
         # Predictions
         y_pred = self.model.predict(X_test)
         y_pred_proba = self.model.predict_proba(X_test)[:, 1] if hasattr(self.model, "predict_proba") else None
+        
         
         # Classification report
         print("Classification Report:")
