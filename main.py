@@ -10,11 +10,13 @@ from models.model_evaluation import ModelEvaluator
 from config.config import DATA_DIR, MODELS_DIR
 
 def main():
+    
     print("=== Cyber Threat Detection with Machine Learning ===\n")
     
     # Step 1: Download and prepare data
     print("Step 1: Downloading and preparing data...")
     downloader = DataDownloader()
+    
     downloader.create_sample_dataset()
     
     preprocessor = DataPreprocessor()
@@ -26,6 +28,7 @@ def main():
     X, y = preprocessor.preprocess_data(df)
     
     # Step 3: Feature engineering
+    
     print("Step 3: Feature engineering...")
     feature_engineer = FeatureEngineer()
     selected_features = feature_engineer.select_features(X, y, n_features=15)
@@ -36,6 +39,7 @@ def main():
     print(importance_df.head(10))
     
     # Step 4: Split data
+    
     print("Step 4: Splitting data...")
     X_train, X_test, y_train, y_test = preprocessor.split_data(X_selected, y)
     
