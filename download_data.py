@@ -25,6 +25,7 @@ class DataDownloader:
         
         data = {
             # Basic connection features
+            
             'duration': np.random.exponential(1, n_samples),
             'protocol_type': np.random.choice([0, 1, 2], n_samples),  # 0:TCP, 1:UDP, 2:ICMP
             'service': np.random.randint(0, 10, n_samples),
@@ -33,17 +34,20 @@ class DataDownloader:
             'dst_bytes': np.random.lognormal(6, 2, n_samples),
             
             # Time-based features
+            
             'same_srv_rate': np.random.uniform(0, 1, n_samples),
             'diff_srv_rate': np.random.uniform(0, 1, n_samples),
             'srv_diff_host_rate': np.random.uniform(0, 1, n_samples),
             
             # Connection features
+            
             'count': np.random.poisson(10, n_samples),
             'serror_rate': np.random.uniform(0, 1, n_samples),
             'rerror_rate': np.random.uniform(0, 1, n_samples),
             'same_srv_rate': np.random.uniform(0, 1, n_samples),
             
             # Content features
+            
             'hot': np.random.poisson(1, n_samples),
             'num_failed_logins': np.random.poisson(0.1, n_samples),
             'logged_in': np.random.choice([0, 1], n_samples),
@@ -64,6 +68,7 @@ class DataDownloader:
         df['label'] = malicious_mask.astype(int)
         
         # Add some noise
+        
         flip_mask = np.random.random(n_samples) < 0.05
         df.loc[flip_mask, 'label'] = 1 - df.loc[flip_mask, 'label']
         
