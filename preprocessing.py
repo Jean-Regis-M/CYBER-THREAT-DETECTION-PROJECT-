@@ -17,11 +17,14 @@ class DataPreprocessor:
     
     def handle_missing_values(self, df):
         """Handle missing values in the dataset"""
-        # Fill numerical columns with median
+       
+         # Fill numerical columns with median
+        
         numerical_cols = df.select_dtypes(include=[np.number]).columns
         df[numerical_cols] = df[numerical_cols].fillna(df[numerical_cols].median())
         
         # Fill categorical columns with mode
+        
         categorical_cols = df.select_dtypes(include=['object']).columns
         for col in categorical_cols:
             df[col] = df[col].fillna(df[col].mode()[0] if len(df[col].mode()) > 0 else 'unknown')
@@ -35,6 +38,7 @@ class DataPreprocessor:
         df['packet_size_std'] = df[['src_bytes', 'dst_bytes']].std(axis=1)
         
         # Behavioral features
+        
         df['high_error_rate'] = (df['serror_rate'] > 0.7) | (df['rerror_rate'] > 0.7)
         df['suspicious_service'] = df['service'].isin([0, 1, 2])  # Common attack services
         
@@ -42,7 +46,9 @@ class DataPreprocessor:
     
     def preprocess_data(self, df, fit_scaler=True):
         """Preprocess the entire dataset"""
+        
         # Handle missing values
+        
         df = self.handle_missing_values(df)
         
         # Engineer new features
